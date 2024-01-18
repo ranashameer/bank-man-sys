@@ -4,13 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banking Management System</title>
-    <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css">
+ 
 </head>
 <body>
 
 <div class="container">
     <h2>Banking Management System</h2>
     <form id="accountForm">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required>
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" rows="4" required></textarea>
+
         <label for="accountType">Account Type:</label>
         <select id="accountType" name="accountType">
             <option value="savings">Savings Account</option>
@@ -30,12 +56,30 @@
 
 <script>
     function saveFormData() {
+        // Generate a unique account number based on the specified pattern
+        var accountNumber = generateAccountNumber();
+
         // Get form values
+        var firstName = document.getElementById("firstName").value;
+        var lastName = document.getElementById("lastName").value;
+        var dob = document.getElementById("dob").value;
+        var gender = document.getElementById("gender").value;
+        var email = document.getElementById("email").value;
+        var phone = document.getElementById("phone").value;
+        var address = document.getElementById("address").value;
         var accountType = document.getElementById("accountType").value;
         var branch = document.getElementById("branch").value;
 
         // Create an object to store the form data
         var formData = {
+            accountNumber: accountNumber,
+            firstName: firstName,
+            lastName: lastName,
+            dob: dob,
+            gender: gender,
+            email: email,
+            phone: phone,
+            address: address,
             accountType: accountType,
             branch: branch
         };
@@ -44,7 +88,22 @@
         localStorage.setItem("formData", JSON.stringify(formData));
 
         // Optional: Redirect to another page or display a success message
-        alert("Form data saved successfully!");
+        alert("Account created successfully! Account Number: " + accountNumber);
+    }
+
+    function generateAccountNumber() {
+        // Generate a unique account number pattern "xxxx-xxxx-xxxx-xxxx-x"
+        var pattern = '';
+        for (var i = 0; i < 4; i++) {
+            pattern += Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            if (i < 3) {
+                pattern += '-';
+            }
+        }
+        // Add a final digit (representing an additional identifier)
+        pattern += '-' + Math.floor(Math.random() * 10);
+
+        return pattern;
     }
 </script>
 
