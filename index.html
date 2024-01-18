@@ -10,7 +10,7 @@
 
 <div class="container">
     <h2>Banking Management System</h2>
-    <form action="#" method="post">
+    <form id="accountForm">
         <label for="accountType">Account Type:</label>
         <select id="accountType" name="accountType">
             <option value="savings">Savings Account</option>
@@ -24,9 +24,29 @@
             <!-- Add more branch options as needed -->
         </select>
 
-        <button type="submit">Open Account</button>
+        <button type="button" onclick="saveFormData()">Open Account</button>
     </form>
 </div>
+
+<script>
+    function saveFormData() {
+        // Get form values
+        var accountType = document.getElementById("accountType").value;
+        var branch = document.getElementById("branch").value;
+
+        // Create an object to store the form data
+        var formData = {
+            accountType: accountType,
+            branch: branch
+        };
+
+        // Convert the object to a JSON string and store it in local storage
+        localStorage.setItem("formData", JSON.stringify(formData));
+
+        // Optional: Redirect to another page or display a success message
+        alert("Form data saved successfully!");
+    }
+</script>
 
 </body>
 </html>
